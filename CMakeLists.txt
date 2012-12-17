@@ -1,0 +1,57 @@
+PROJECT(qlocalytics)
+
+set( CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -DQT_NO_CAST_FROM_ASCII -DQT_NO_CAST_TO_ASCII" )
+set( CMAKE_BUILD_TYPE Debug)
+
+# Stop cmake 2.6 from whining
+CMAKE_MINIMUM_REQUIRED(VERSION 2.6)
+CMAKE_POLICY(SET CMP0003 NEW)
+
+set(CMAKE_INSTALL_NAME_DIR ${LIB_INSTALL_DIR})
+
+# Ability to disable verbose debug output
+IF(QLOCALYTICS_VERBOSE_DEBUG_OUTPUT)
+  ADD_DEFINITIONS("-DQLOCALYTICS_VERBOSE_DEBUG_OUTPUT")
+endif(QLOCALYTICS_VERBOSE_DEBUG_OUTPUT)
+
+ADD_DEFINITIONS( -Wall )
+
+# Don't use absolute path in qlocalytics-targets-*.cmake
+# (This will have no effect with CMake < 2.8)
+SET(QT_USE_IMPORTED_TARGETS TRUE)
+
+# Find Qt4
+FIND_PACKAGE( Qt4 REQUIRED )
+
+IF (NOT WIN32)
+  SET( QT_DONT_USE_QTGUI TRUE )
+ENDIF()
+SET (QT_USE_QTNETWORK TRUE)
+SET (QT_USE_QTSQL TRUE)
+
+# Include the cmake file needed to use qt4
+INCLUDE( ${QT_USE_FILE} )
+
+set(QLOCALYTICS_LIB_MAJOR_VERSION "1")
+set(QLOCALYTICS_LIB_MINOR_VERSION "0")
+set(QLOCALYTICS_LIB_PATCH_VERSION "0")
+
+set(QLOCALYTICS_LIB_VERSION_STRING "${QLOCALYTICS_LIB_MAJOR_VERSION}.${QLOCALYTICS_LIB_MINOR_VERSION}.${QLOCALYTICS_LIB_PATCH_VERSION}")
+
+
+# Subdirs
+ADD_SUBDIRECTORY(src)
+enable_testing()
+ADD_SUBDIRECTORY(tests)
+
+
+# add a target to generate API documentation with Doxygen
+find_package(Doxygen)
+if(DOXYGEN_FOUND)
+  configure_file(${CMAKE_CURRENT_SOURCE_DIR}/Doxyfile.in ${CMAKE_CURRENT_BINARY_DIR}/Doxyfile @ONLY)
+  add_custom_target(doc
+    ${DOXYGEN_EXECUTABLE} ${CMAKE_CURRENT_BINARY_DIR}/Doxyfile
+    WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}
+    COMMENT "Generating API documentation with Doxygen" VERBATIM
+    )
+endif(DOXYGEN_FOUND)
