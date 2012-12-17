@@ -59,7 +59,7 @@ You can attach attributes to an event by passing a Dictionary<string, string> as
     QVariantMap attr;
     attr["Barcode Length"] = QString::number(barcode_truncated.length());
     LocalyticsSession::sharedLocalyticsSession()->tagEvent("Barcode Added", attr);
-````cpp
+````
 
 ## Notes
 - Screen flows are not currently supported.
