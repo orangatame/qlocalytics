@@ -989,12 +989,12 @@ QString LocalyticsSession::getNetworkType()
 #ifdef __QNXNTO__
   //TODO wifi? QLatin1String("802_11")
   bb::device::CellularRadioInfo cellular;
-  CellularTechnology::Types types = cellular.activeTechnologies();
-  if (types & CellularTechnology::Lte)  return QLatin1String("lte");
-  if (types & CellularTechnology::Evdo) return QLatin1String("evdo");
-  if (types & CellularTechnology::Cdma1X) return QLatin1String("cdma");
-  if (types & CellularTechnology::Umts) return QLatin1String("umts");
-  if (types & CellularTechnology::Gsm) return QLatin1String("gsm");
+  bb::device::CellularTechnology::Types types = cellular.activeTechnologies();
+  if (types & bb::device::CellularTechnology::Lte)  return QLatin1String("lte");
+  if (types & bb::device::CellularTechnology::Evdo) return QLatin1String("evdo");
+  if (types & bb::device::CellularTechnology::Cdma1X) return QLatin1String("cdma");
+  if (types & bb::device::CellularTechnology::Umts) return QLatin1String("umts");
+  if (types & bb::device::CellularTechnology::Gsm) return QLatin1String("gsm");
 #endif
   return QLatin1String("");
 }
