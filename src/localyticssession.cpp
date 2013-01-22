@@ -800,13 +800,11 @@ QString LocalyticsSession::escapeString(const QString input)
 	QString output = input;
 	output.replace(QLatin1String("\\"), QLatin1String("\\\\"))
           .replace(QLatin1String("\""), QLatin1String("\\\""))
-          .replace(QLatin1String("\'"), QLatin1String("\\\'"))
           .replace(QLatin1String("\n"), QLatin1String("\\n"))
           .replace(QLatin1String("\t"), QLatin1String("\\t"))
           .replace(QLatin1String("\b"), QLatin1String("\\b"))
           .replace(QLatin1String("\r"), QLatin1String("\\r"))
-          .replace(QLatin1String("\f"), QLatin1String("\\f"))
-          .replace(QLatin1String("\v"), QLatin1String("\\v"));
+          .replace(QLatin1String("\f"), QLatin1String("\\f"));
    return output;
 }
 
