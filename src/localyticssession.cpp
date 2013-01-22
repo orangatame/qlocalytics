@@ -49,8 +49,15 @@
 // The randomly generated ID for each install of the app
 #define PREFERENCES_KEY QLatin1String("_localytics_install_id")
 
-// The version of this library
-#define CLIENT_VERSION  QLatin1String("iOS_2.14")
+/*!
+ The version of this library.
+
+ - String must be under 16 characters
+ - String contain a version number at the end, greater than 2.0 in
+   order to avoid triggering deprecation warnings in Localytics
+   dashboard.
+ */
+#define CLIENT_VERSION  QLatin1String("qbb10_2.0")
 
 // The directory in which the Localytics database is stored
 #define LOCALYTICS_DIR  QLatin1String(".localytics")
